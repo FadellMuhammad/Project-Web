@@ -8,13 +8,14 @@ $database = new database();
 // }
 
 if (isset($_POST['register'])) {
-
+    
     $nama = $_POST['nama'];
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     if ($database->register($nama, $username, $password)) {
         header('location:login.php');
     }
+
 }
 ?>
 

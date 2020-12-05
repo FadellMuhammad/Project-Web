@@ -53,11 +53,11 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Dibeli</p>
-                                            <h6 class="text-muted f-w-400">14</h6>
+                                            <h6 class="text-muted f-w-400"><?php echo $_SESSION['dibeli']?></h6>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Tersimpan</p>
-                                            <h6 class="text-muted f-w-400">10</h6>
+                                            <h6 class="text-muted f-w-400"><?php echo $_SESSION['tersimpan']?></h6>
                                         </div>
                                     </div>
                                     <div class="row">

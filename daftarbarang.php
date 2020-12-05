@@ -1,11 +1,23 @@
 <?php
-    session_start();
-    include_once('db_connect.php');
-    $database = new database();
+session_start();
+include_once('db_connect.php');
+$database = new database();
 
-    if(! isset($_SESSION['login'])){
+if (!isset($_SESSION['login'])) {
+    header('location:login.php');
+}
+
+if (isset($_POST['klik'])) {
+    $id = 1;
+    $dibeli = $_POST['dibeli'];
+    $tersimpan = $_POST['tersimpan'];
+    if (
+        $database->data($id,$dibeli, $tersimpan)
+    ) {
         header('location:login.php');
-      }
+    }
+}
+
 ?>
 
 <!doctype html>
@@ -25,112 +37,114 @@
 <body>
     <div class="container">
         <div class="mb-3 d-flex justify-content-between">
-        <a href="index.php" class="buttn tex bt">Home</a>
-        <h1 align="center" >DAFTAR BARANG</h1>
-        <a href="profil.php" class="buttn tex bt">Profil</a>
+            <a href="index.php" class="buttn tex bt">Home</a>
+            <h1 align="center">DAFTAR BARANG</h1>
+            <a href="profil.php" class="buttn tex bt">Profil</a>
         </div>
 
-        <div class="card-deck radius">
-            <div class="row">
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
+        <form method="post">
+            <div class="card-deck radius">
+                <div class="row">
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <input type="text" id="dibeli" name="dibeli">
+                                <input type="text" id="tersimpan" name="tersimpan">
+                                <button class="button" type="submit" name="klik">submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <a href="#" class="button buttn tex ml-2">Simpan</a>
+                                <a href="#" class="button buttn tex">Beli</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <a href="#" class="button buttn tex ml-2">Simpan</a>
+                                <a href="#" class="button buttn tex">Beli</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <a href="#" class="button buttn tex ml-2">Simpan</a>
+                                <a href="#" class="button buttn tex">Beli</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
+                <div class="row">
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <a href="#" class="button buttn tex ml-2">Simpan</a>
+                                <a href="#" class="button buttn tex">Beli</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <a href="#" class="button buttn tex ml-2">Simpan</a>
+                                <a href="#" class="button buttn tex">Beli</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <a href="#" class="button buttn tex ml-2">Simpan</a>
+                                <a href="#" class="button buttn tex">Beli</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 m-2">
+                        <img src="img/ta.png" class="card-img-top radius" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title mb-0">RAM</h5>
+                            <p class="card-text">120.000</p>
+                            <div class="button">
+                                <a href="#" class="button buttn tex ml-2">Simpan</a>
+                                <a href="#" class="button buttn tex">Beli</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card p-2 m-2">
-                    <img src="img/ta.png" class="card-img-top radius" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title mb-0">RAM</h5>
-                        <p class="card-text">120.000</p>
-                        <div class="button">
-                            <a href="#" class="button buttn tex ml-2">Simpan</a>
-                            <a href="#" class="button buttn tex">Beli</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        </form>
     </div>
 
 
