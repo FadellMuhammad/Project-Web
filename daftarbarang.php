@@ -1,24 +1,44 @@
 <?php
+
+// if(isset($_SESSION['username'])){
+//     echo "<script>alert('silakan login terlebih dahulu')</script>";
+// }
+
 session_start();
 include_once('db_connect.php');
 $database = new database();
 
+// if (!isset($_SESSION['username'])) {
+//     echo "<script>alert('silakan login terlebih dahulu')</script>";
+//     // header('location:login.php');
+
+// }
+
 if (!isset($_SESSION['login'])) {
-    header('location:login.php');
+    header('location:popup.php');
 }
 
-if (isset($_POST['klik'])) {
-    $id = 1;
-    $dibeli = $_POST['dibeli'];
-    $tersimpan = $_POST['tersimpan'];
+if (isset($_POST['simpan'])) {
+    $id = $database->dapatid($_SESSION['username']);
+    $tersimpan = $_POST['idbarang'];
     if (
-        $database->data($id,$dibeli, $tersimpan)
+        $database->data($id, 0, $tersimpan)
     ) {
-        header('location:login.php');
+        header('location:daftarbarang.php');
     }
 }
 
+if (isset($_POST['beli'])) {
+    $id = $database->dapatid($_SESSION['username']);
+    $dibeli = $_POST['idbarang'];
+    if (
+        $database->data($id, $dibeli, 0)
+    ) {
+        header('location:daftarbarang.php');
+    }
+}
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -42,109 +62,131 @@ if (isset($_POST['klik'])) {
             <a href="profil.php" class="buttn tex bt">Profil</a>
         </div>
 
-        <form method="post">
-            <div class="card-deck radius">
-                <div class="row">
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <input type="text" id="dibeli" name="dibeli">
-                                <input type="text" id="tersimpan" name="tersimpan">
-                                <button class="button" type="submit" name="klik">submit</button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <a href="#" class="button buttn tex ml-2">Simpan</a>
-                                <a href="#" class="button buttn tex">Beli</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <a href="#" class="button buttn tex ml-2">Simpan</a>
-                                <a href="#" class="button buttn tex">Beli</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <a href="#" class="button buttn tex ml-2">Simpan</a>
-                                <a href="#" class="button buttn tex">Beli</a>
-                            </div>
+        <div class="card-deck radius">
+            <div class="row">
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                            <form method="post">
+                                <input type="number" name="idbarang" hidden value="1">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <a href="#" class="button buttn tex ml-2">Simpan</a>
-                                <a href="#" class="button buttn tex">Beli</a>
-                            </div>
+
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                            <form method="post">
+                                <input type="number" name="idbarang" hidden value="2">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
                         </div>
                     </div>
+                </div>
 
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <a href="#" class="button buttn tex ml-2">Simpan</a>
-                                <a href="#" class="button buttn tex">Beli</a>
-                            </div>
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                            <form method="post">
+                                <input type="number" name="idbarang" hidden value="3">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
                         </div>
                     </div>
+                </div>
 
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <a href="#" class="button buttn tex ml-2">Simpan</a>
-                                <a href="#" class="button buttn tex">Beli</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card p-2 m-2">
-                        <img src="img/ta.png" class="card-img-top radius" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title mb-0">RAM</h5>
-                            <p class="card-text">120.000</p>
-                            <div class="button">
-                                <a href="#" class="button buttn tex ml-2">Simpan</a>
-                                <a href="#" class="button buttn tex">Beli</a>
-                            </div>
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                        <form method="post">
+                                <input type="number" name="idbarang" hidden value="3">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+            <div class="row">
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                        <form method="post">
+                                <input type="number" name="idbarang" hidden value="3">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                        <form method="post">
+                                <input type="number" name="idbarang" hidden value="3">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                        <form method="post">
+                                <input type="number" name="idbarang" hidden value="3">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-2 m-2">
+                    <img src="img/ta.png" class="card-img-top radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">RAM</h5>
+                        <p class="card-text">120.000</p>
+                        <div class="button">
+                        <form method="post">
+                                <input type="number" name="idbarang" hidden value="3">
+                                <button type="submit" name="simpan" class="button buttn tex ml-2">Simpan</button>
+                                <button type="submit" name="beli" class="button buttn tex ml-2">Beli</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

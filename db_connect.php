@@ -18,6 +18,12 @@ class database
 		return $insert;
 	}
 
+	function cekusername($username){
+		$query = mysqli_query($this->koneksi,  "select * from pendaftaran where username='$username'");
+		$data_user = $query->fetch_array();
+		return isset($data_user);
+	}
+
 	function data($id, $dibeli, $tersimpan){
 		$insert = mysqli_query($this->koneksi, "insert into databarang value('$id','$dibeli','$tersimpan')");
 		return $insert;
@@ -26,19 +32,37 @@ class database
 	
 	function login($username, $password)
 	{
-		$query = mysqli_query($this->koneksi,  "select * from pendaftaran,databarang where username='$username'");
+		$query = mysqli_query($this->koneksi,  "select * from pendaftaran where username='$username'");
 		$data_user = $query->fetch_array();
 
 		if (isset($data_user)) {
 			if (password_verify($password, $data_user['password'])) {
 				$_SESSION['username'] = $username;
 				$_SESSION['nama'] = $data_user['nama'];
-				$_SESSION['dibeli'] = $data_user['dibeli'];
-				$_SESSION['tersimpan'] = $data_user['tersimpan'];
 				$_SESSION['login'] = true;
 				return true;
 			}
 		}	
+	}
+
+	function tampil($username, $kolom){
+		$id = $this->dapatid($username);
+		$query = mysqli_query($this->koneksi,  "SELECT COUNT($kolom) FROM databarang WHERE $kolom!=0 AND id='$id'");
+		$data_user = $query->fetch_array();
+		return $data_user;
+		
+	}
+
+	function dapatid($username){
+		$query = mysqli_query($this->koneksi,  "select * from pendaftaran where username='$username'");
+		$data_user = $query->fetch_array();
+		return $data_user['id'];
+	}
+
+	function reset($username){
+		$id = $this->dapatid($username);
+		$insert = mysqli_query($this->koneksi, "delete from databarang where id='$id'");
+		return $insert;
 	}
 
 	// function tambah($dibeli, $tersimpan){
