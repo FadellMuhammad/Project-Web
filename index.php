@@ -1,9 +1,3 @@
-<?php
- if(isset($_SESSION['login'])){
-  header('location:daftarba.php');
-}
-?>
-
 <!doctype html>
 <html lang="en">
 
@@ -40,9 +34,11 @@
     </div>
   </nav>
 
-  <div class="tampilan"> 
-  <img src="img/ta.png" class="img-fluid imag">
-    <a href="daftarbarang.php"><div class="buttn tex">Start</div></a>
+  <div class="tampilan">
+    <img src="img/ta.png" class="img-fluid imag">
+    <a href="daftarbarang.php">
+      <div class="buttn tex">Start</div>
+    </a>
   </div>
 
   <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
