@@ -14,10 +14,9 @@ if (isset($_POST['register'])) {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     if(!$database->cekusername($username)){
         if ($database->register($nama, $username, $password)) {
-            header('location:login.php');
+            header('location:Login.php');
         }
     }
-
 
 }
 

@@ -1,3 +1,25 @@
+<?php
+
+ session_start();
+ include_once('db_connect.php');
+ $database = new database();
+
+ // if(isset($_SESSION['login'])){
+ //     header('location:index.php');
+ // }
+
+ if(isset($_POST['login'])){
+     $username = $_POST['username'];
+     $password = $_POST['password'];
+
+     if($database->login($username, $password)){
+         header('location:index.php');
+     }
+ }
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -21,6 +43,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto ">
+      <li class="nav-item">
+          <a class="nav-link button navbtn" href="cv.php"><span class="bordr tex">PROFIL PEMILIK </span> </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link button navbtn" href="daftar.php"><span class="bordr tex">Daftar </span> </a>
         </li>

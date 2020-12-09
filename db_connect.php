@@ -14,7 +14,7 @@ class database
 	}
 
 	function register($nama, $username, $password){
-		$insert = mysqli_query($this->koneksi, "insert into pendaftaran value('','$nama','$username','$password')");
+		$insert = 	mysqli_query($this->koneksi, "insert into pendaftaran value('','$nama','$username','$password')");
 		return $insert;
 	}
 
